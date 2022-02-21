@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS reviews;
 
 DROP TABLE IF EXISTS storeapp;
 
-
 CREATE TABLE storeapp (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,

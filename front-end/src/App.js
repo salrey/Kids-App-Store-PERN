@@ -4,13 +4,13 @@ const API = process.env.REACT_APP_API_URL;
 
 console.log(API);
 function App() {
-  const [days, setDays] = useState([]);
+  const [apps, setApps] = useState([]);
   useEffect(() => {
     axios
-      .get(`${API}/test`)
+      .get(`${API}/apps`)
       .then(
         (response) => {
-          setDays(response.data);
+          setApps(response.data);
         },
         (error) => console.log("get", error)
       )
@@ -19,8 +19,8 @@ function App() {
   return (
     <div>
       <ul>
-        {days.map((day) => (
-          <li key={day.name}>{day.name}</li>
+        {apps.map((app) => (
+          <li key={app.id}>{app.name}</li>
         ))}
       </ul>
     </div>
