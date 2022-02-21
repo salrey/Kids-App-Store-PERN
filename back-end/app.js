@@ -2,6 +2,8 @@
 const cors = require("cors");
 const express = require("express");
 
+const storeappController = require("./controllers/storeappController")
+
 // CONFIGURATION
 const app = express();
 
@@ -10,27 +12,16 @@ app.use(cors());
 app.use(express.json()); // Parse incoming JSON
 
 // ROUTES
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
+app.use("/apps", storeappController);
+
+
+app.get("/", (_, res) => {
+  res.status(200).send("Welcome to AmaKid App Store!");
 });
 
-/////////////////////////////////////
-// REMOVE AFTER SUCCESSFUL DEPLOYMENT
-/////////////////////////////////////
-const db = require("./db/dbConfig.js");
-
-app.get("/test", async (req, res) => {
-  try {
-    const allDays = await db.any("SELECT * FROM test");
-    res.json(allDays);
-  } catch (err) {
-    res.json(err);
-  }
+app.get("*", (_, res) => {
+  res.status(404).send("This page has not been found");
 });
-
-/////////////////////////////////////
-// REMOVE AFTER SUCCESSFUL DEPLOYMENT
-/////////////////////////////////////
 
 // EXPORT
 module.exports = app;

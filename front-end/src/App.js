@@ -9,8 +9,8 @@ function App() {
     axios
       .get(`${API}/apps`)
       .then(
-        (response) => {
-          setApps(response.data);
+        (response) => { console.log(response.data.payload)
+          setApps(response.data.payload);
         },
         (error) => console.log("get", error)
       )
