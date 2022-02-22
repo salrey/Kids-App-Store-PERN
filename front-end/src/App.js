@@ -1,29 +1,31 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-const API = process.env.REACT_APP_API_URL;
+//Dependencies
+import { Routes, Route } from "react-router-dom"
+//Components
+import NavBar from './Components/NavBar'
 
-console.log(API);
+//Pages
+import Home from "./Pages/Home";
+import Index from "./Pages/Index";
+import Show from "./Pages/Show";
+import New from "./Pages/New";
+import Edit from "./Pages/Edit";
+import Reload from "./Pages/Reload";
+
+
 function App() {
-  const [apps, setApps] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${API}/apps`)
-      .then(
-        (response) => { console.log(response.data.payload)
-          setApps(response.data.payload);
-        },
-        (error) => console.log("get", error)
-      )
-      .catch((c) => console.warn("catch", c));
-  }, []);
   return (
-    <div>
-      <ul>
-        {apps.map((app) => (
-          <li key={app.id}>{app.name}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<Home />}/>
+        <Route path="/apps" element={<Index />}/>
+        <Route path="/apps/:id" element={<Show />}/>
+        <Route path="/apps/new" element={<New />}/>
+        <Route path="/apps/:id/edit" element={<Edit />}/>
+        <Route path="*" element={<Reload />}/>
+      </Routes>
+    </>
+    
   );
 }
 
