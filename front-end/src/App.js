@@ -11,14 +11,19 @@ import New from "./Pages/New";
 import Edit from "./Pages/Edit";
 import Reload from "./Pages/Reload";
 
+import { useState } from "react";
+
 
 function App() {
+    //useState at the parent level to capture updates on the total
+    const [update, setUpdate] = useState()
+
   return (
     <>
-      <NavBar />
+      <NavBar update={update}/>
       <Routes>
         <Route exact path="/" element={<Home />}/>
-        <Route path="/apps" element={<Index />}/>
+        <Route path="/apps" element={<Index parentCallBack={setUpdate} />}/>
         <Route path="/apps/:id" element={<Show />}/>
         <Route path="/apps/new" element={<New />}/>
         <Route path="/apps/:id/edit" element={<Edit />}/>

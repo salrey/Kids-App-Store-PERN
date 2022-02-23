@@ -1,7 +1,9 @@
-* {
-    background-color: #272727;
+body {
+    background-color: #9FC1EE;
     color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
     text-decoration: none;
+    text-align: center;
+    vertical-align: middle; */
 }
