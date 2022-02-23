@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import AppsIcon from '@mui/icons-material/Apps';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Button from '@mui/material/Button';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import appLogo from "../assets/Logo.png"
 import avatarLogo from "../assets/Avatars.png"
@@ -92,6 +93,10 @@ const NavBar = ({update}) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleCart = () => {
+    return navigate("/apps/cart");
+  }
+
   const handleNewApp = () => {
     return navigate("/apps/new");
   }
@@ -169,7 +174,7 @@ const NavBar = ({update}) => {
             <AppsIcon />
           </Badge>
         </IconButton>
-        <Button color="secondary">My Apps</Button>
+        <Button color="secondary">App Store</Button>
       </MenuItem>
       <MenuItem onClick={handleNewApp}>
         <IconButton
@@ -182,6 +187,18 @@ const NavBar = ({update}) => {
           </Badge>
         </IconButton>
         <Button color="secondary">List an App</Button>
+      </MenuItem>
+      <MenuItem onClick={handleCart}>
+        <IconButton
+          size="large"
+          aria-label="show 1 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={3} color="primary">
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
+        <Button color="secondary">Shopping Cart</Button>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -243,6 +260,17 @@ const NavBar = ({update}) => {
               </Badge>
             </IconButton>
             <Button color="inherit" onClick={handleNewApp}>List an App</Button>
+            <IconButton
+              size="large"
+              aria-label="show 1 new notifications"
+              color="inherit"
+              onClick={handleCart}
+            >
+              <Badge badgeContent={3} color="primary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+            <Button color="inherit" onClick={handleCart}>Shopping Cart</Button>
             <IconButton
               size="large"
               edge="end"

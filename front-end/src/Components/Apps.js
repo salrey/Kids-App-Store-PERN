@@ -2,6 +2,9 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import FormatApps from "./FormatApps";
 
+import ImageList from '@mui/material/ImageList';
+
+
 const Apps = ({parentCallBack}) => {
     const [apps, setApps] = useState([]);
     const URL = process.env.REACT_APP_API_URL
@@ -20,12 +23,12 @@ const Apps = ({parentCallBack}) => {
 
     return (
     <main>
-        <section className="Apps">
-        <article>
-            {apps.map((app) => {
-                return <FormatApps key={app.id} app={app}/>
-            })}
-        </article>
+        <section className="Apps container">
+            <ImageList variant="masonry" gap={20}>
+                {apps.map((app) => {
+                    return <FormatApps key={app.id} app={app}/>
+                })}
+            </ImageList>
         </section>
     </main>
     );
