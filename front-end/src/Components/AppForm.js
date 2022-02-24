@@ -60,7 +60,7 @@ const AppForm = () => {
     const handleEdit = async (event) => {
         event.preventDefault();
         await axios.put(`${URL}/apps/${id}`, app);
-        navigate(`/apps`);
+        navigate(`/apps/${id}`);
     };
 
     return (
