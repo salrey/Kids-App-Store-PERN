@@ -74,6 +74,9 @@ const NavBar = ({update}) => {
   const sum = (apps) => {
     return apps.reduce((acc, _) => acc += 1,0)
   }
+
+  // Backlog - CART TABLE fetch the latest array of products in cart, then track every change thereafter  
+  // const latestCart = cart
   
   useEffect(() => {
     axios.get(`${URL}/apps`)
@@ -84,8 +87,6 @@ const NavBar = ({update}) => {
   }, [URL])
 
   const display = update === undefined ? total : update
-
-
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -194,7 +195,7 @@ const NavBar = ({update}) => {
           aria-label="show 1 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={3} color="primary">
+          <Badge badgeContent={2} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -266,7 +267,7 @@ const NavBar = ({update}) => {
               color="inherit"
               onClick={handleCart}
             >
-              <Badge badgeContent={3} color="primary">
+              <Badge badgeContent={2} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

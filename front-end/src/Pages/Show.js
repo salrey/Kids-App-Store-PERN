@@ -2,11 +2,8 @@ import AppDetails from "../Components/AppDetails";
 
 const Show = () => {
   return (
-    <div className="Show">
-      <div className="">
-        <h2>App Details</h2>
+    <div className="Show mt-5 container">
         <AppDetails />
-      </div>
     </div>
   );
 }
