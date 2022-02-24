@@ -1,3 +1,18 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+
+
+
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -18,7 +33,7 @@ const AppForm = () => {
       description: "",
       category: "",
       age: "",
-      featured: ""
+      featured: false
     });
 
     const isEdit = id ? true : false;
@@ -33,6 +48,9 @@ const AppForm = () => {
 
     const handleInputChange = (event) => {
         setApp({ ...app, [event.target.id]: event.target.value});
+        if (event.target.name === "category") {
+            setApp({ ...app, [event.target.name]: event.target.value});
+        }
     };
 
     const handleCheckboxChange = (event) => {
@@ -55,6 +73,7 @@ const AppForm = () => {
       event.preventDefault();
       await axios.post(`${URL}/apps`, app);
       navigate("/apps");
+      console.log(app)
     };
 
     const handleEdit = async (event) => {
@@ -64,90 +83,88 @@ const AppForm = () => {
     };
 
     return (
-    <div className="Form">
+    <div className="Form container mt-5">
         <div className="">
-            <form className="" onSubmit={isEdit ? handleEdit : handleNew}>
-                <label htmlFor="name">Name</label>
-                <input
-                className=""
-                id="name"
-                value={app.name}
-                type="text"
-                onChange={handleInputChange}
-                placeholder="app name"
-                required
-                />
-                <label htmlFor="image">Image</label>
-                <input 
-                type="text" 
-                className="" 
-                id="image" 
-                value={app.image} 
-                onChange={handleInputChange}
-                placeholder="link to app image"
-                required
-                />
-                <label htmlFor="price">Price</label>
-                <input
-                className=""
-                id="price"
-                value={app.price}
-                type="number"
-                min="0"
-                onChange={handleInputChange}
-                placeholder="app price"
-                required
-                />
-                <label htmlFor="developer">Developer</label>
-                <input
-                className=""
-                id="developer"
-                type="text"
-                value={app.developer}
-                placeholder="app developer"
-                onChange={handleInputChange}
-                required
-                />
-                <label htmlFor="description">Description</label>
-                <input
-                className=""
-                id="description"
-                type="text"
-                value={app.description}
-                placeholder="app description"
-                onChange={handleInputChange}
-                required
-                />
-                <label htmlFor="age">Age</label>
-                <input
-                className=""
-                id="age"
-                type="text"
-                value={app.age}
-                placeholder="app age"
-                onChange={handleInputChange}
-                required
-                />
-                <label className="" htmlFor="category">
-                    <select onChange={handleInputChange} className="" name="category" id="category" value={app.category} required>
-                        <option className="dropdown-item" value="">---choose a category---</option>
-                        <option className="dropdown-item" value="Games">Games</option>
-                        <option className="dropdown-item" value="Education">Education</option>
-                        <option className="dropdown-item" value="Music">Music</option>
-                        <option className="dropdown-item" value="Entertainment">Entertainment</option>
-                    </select>
-                </label>
-                <label className={checkbox.classList} id="featured" >{checkbox.text}
-                    <input
-                    className=""
-                    id="type"
-                    type="checkbox"
-                    onChange={handleCheckboxChange}
+            <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={isEdit ? handleEdit : handleNew}
+            >
+                <div>
+                    <TextField
+                    required
+                    id="name"
+                    label="Name"
+                    value={app.name}
+                    onChange={handleInputChange}
                     />
-                </label>
-                <br />
-                <button className="">Submit</button>
-            </form>
+                    <TextField
+                    required
+                    id="image"
+                    label="Image"
+                    value={app.image}
+                    onChange={handleInputChange}
+                    />
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                        <InputLabel htmlFor="price">Price</InputLabel>
+                        <OutlinedInput
+                            id="price"
+                            value={app.price}
+                            onChange={handleInputChange}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            label="Price"
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                            required
+                        />
+                    </FormControl>
+                    <TextField
+                    required
+                    id="developer"
+                    label="Developer"
+                    value={app.developer}
+                    onChange={handleInputChange}
+                    />
+                    <TextField
+                    required
+                    id="age"
+                    label="Age"
+                    value={app.age}
+                    onChange={handleInputChange}
+                    />
+                    <TextField
+                    required
+                    multiline
+                    id="description"
+                    label="Description"
+                    value={app.description}
+                    onChange={handleInputChange}
+                    />
+                    <TextField
+                    id="category"
+                    name="category"
+                    select
+                    label="Category"
+                    value={app.category}
+                    onChange={handleInputChange}
+                    required
+                    >
+                        <MenuItem value={""}>----</MenuItem>
+                        <MenuItem value={"Games"}>Games</MenuItem>
+                        <MenuItem value={"Education"}>Education</MenuItem>
+                        <MenuItem value={"Music"}>Music</MenuItem>
+                        <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                    </TextField>
+                    <FormGroup>
+                        <FormControlLabel className="text-dark" control={<Checkbox checked={app.featured} onChange={handleCheckboxChange} />} id="featured" label={checkbox.text} />
+                    </FormGroup>
+                    <br />
+                    <button className="">Submit</button>
+                </div>
+            </Box>
             <Link to={isEdit ? `/apps/${id}` : '/apps'}>
                 <button className="">Back</button>
             </Link>
